@@ -1,0 +1,25 @@
+# ════════════════════════════════════════════════════════════════
+#   DIPESH Bot — Python requirements
+#   Install:  pip install -r requirements.txt
+# ════════════════════════════════════════════════════════════════
+
+# ── Telethon (userbot core) ──
+telethon>=1.36.0
+
+# ── python-telegram-bot (hoster bot) ──
+#   [job-queue] extra is required — the code uses app.job_queue
+#   for the auto_health_check loop.
+python-telegram-bot[job-queue]>=20.7,<21.0
+
+# ── HTTP ──
+requests>=2.31.0
+
+# ── QR code generator (.qrcode command) ──
+qrcode[pil]>=7.4.2
+pillow>=10.0.0
+
+# ── Google TTS (.tts command) ──
+gTTS>=2.5.1
+
+# ── YouTube / audio download (.music / .dmusic) ──
+yt-dlp>=2024.1.1
