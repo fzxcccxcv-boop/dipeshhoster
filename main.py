@@ -7072,4 +7072,7 @@ else:
 
     if __name__ == "__main__":
         main()
-        except Exception as e: print(f"[FastGC Loop Crash] → {str(e)[:80]}")
+               except asyncio.CancelledError:
+            return
+        except Exception as e:
+            print(f"[FastGC Loop Crash] -> {str(e)[:80]}")
