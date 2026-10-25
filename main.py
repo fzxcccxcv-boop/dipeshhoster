@@ -7071,8 +7071,36 @@ else:
         app.run_polling(allowed_updates=Update.ALL_TYPES)
 
     if __name__ == "__main__":
-        main()
-               except asyncio.CancelledError:
+        main()   
+            async def gc_fast_loop(chat_id):
+        try:
+            while True:
+                if not FASTGC_STATE.get("active"):
+                    break
+                template = FASTGC_STATE.get("template")
+                if not template:
+                    break
+                try:
+                    emoji = random.choice(GC_FAST_EMOJIS)
+                except Exception:
+                    emoji = "⚡"
+                try:
+                    new_title = template.replace("{emoji}", emoji)
+                except Exception:
+                    await asyncio.sleep(2)
+                    continue
+                ok = await fast_title_edit(chat_id, new_title)
+                try:
+                    if ok:
+                        await asyncio.sleep(max(1, GC_FAST_INTERVAL))
+                    else:
+                        await asyncio.sleep(5)
+                except Exception:
+                    await asyncio.sleep(3)
+        except asyncio.CancelledError:
+            return
+        except Exception as e:
+            print(f"[FastGC Loop Crash] -> {str(e)[:80]}")
             return
         except Exception as e:
             print(f"[FastGC Loop Crash] -> {str(e)[:80]}")
